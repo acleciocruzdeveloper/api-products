@@ -31,7 +31,11 @@ public class ProductDTO {
         productDTO.setDescricao(product.getDescricao());
         productDTO.setPreco(product.getPreco());
         productDTO.setProductIdentifier(product.getProductIdentifier());
-
+        if (product.getCategory() != null) {
+            productDTO.setCategoryDTO(
+                    CategoryDTO.coverter(product.getCategory())
+            );
+        }
         return productDTO;
     }
 
