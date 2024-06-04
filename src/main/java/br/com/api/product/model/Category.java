@@ -3,7 +3,11 @@ package br.com.api.product.model;
 import br.com.api.product.dto.CategoryDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity(name = "category")
 public class Category {
     @Id
@@ -18,26 +22,10 @@ public class Category {
         this.nome = nome;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    private void seId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public static Category coverter(CategoryDTO categoryDTO) {
         Category category = new Category();
         category.setNome(categoryDTO.getNome());
-        category.seId(categoryDTO.getId());
+        category.setId(categoryDTO.getId());
         return category;
     }
 

@@ -1,12 +1,15 @@
 package br.com.api.product.model;
 
-import br.com.api.product.dto.CategoryDTO;
 import br.com.api.product.dto.ProductDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity(name = "product")
 public class Product {
     @Id
@@ -28,50 +31,6 @@ public class Product {
         this.descricao = descricao;
         this.preco = preco;
         this.productIdentifier = productIdentifier;
-        this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getProductIdentifier() {
-        return productIdentifier;
-    }
-
-    public void setProductIdentifier(String productIdentifier) {
-        this.productIdentifier = productIdentifier;
-    }
-
-    public Float getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Float preco) {
-        this.preco = preco;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
     }
 
