@@ -2,14 +2,13 @@ package br.com.api.product.service;
 
 import br.com.api.product.dto.ProductDTO;
 import br.com.api.product.model.Product;
+import br.com.api.product.repositories.CategoryRepository;
 import br.com.api.product.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -17,19 +16,20 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     public List<ProductDTO> getAllProducts() {
         return productRepository.findAll()
                 .stream()
                 .map(ProductDTO::converter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<ProductDTO> getProductByCategoryId(Long categoryId) {
         return productRepository.getProductByCategory(categoryId)
                 .stream()
                 .map(ProductDTO::converter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ProductDTO findByProductIdentifier(String productIdentifier) {
@@ -42,12 +42,13 @@ public class ProductService {
     }
 
     public ProductDTO save(ProductDTO productDTO) {
-        Product product = productRepository.save(Product.converter(productDTO));
+        Product product = Product.converter(productDTO);
+        productRepository.save(product);
         return ProductDTO.converter(product);
     }
 
-    public void delete(long productId) throws BadRequestException {
+    public void delete(long productId) {
         var product = productRepository.findById(productId);
         product.ifPresent(productRepository::delete);
-        }
+    }
 }
